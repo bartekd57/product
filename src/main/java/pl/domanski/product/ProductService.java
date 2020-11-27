@@ -13,20 +13,25 @@ public class ProductService {
 
     private ProductRepository productRepository;
     private DiscountRepository discountRepository;
+    private Mapper mapper;
     private Map<Long, Integer> map = new HashMap<>();
 
 
     @Autowired
-    public ProductService(ProductRepository productRepository, DiscountRepository discountRepository) {
+    public ProductService(ProductRepository productRepository, DiscountRepository discountRepository, Mapper mapper) {
         this.productRepository = productRepository;
         this.discountRepository = discountRepository;
+        this.mapper = mapper;
     }
+
+
+
 
     public ProductDTO findProductAndChangePrice(Long id) {
         setCounterValue(id);
         return productRepository.findById(id)
                 .map(this::getProductWithDiscountedPrice)
-                .map(Mapper::toDto)
+                .map(mapper::toDto)
                 .orElseThrow(NoSuchElementException::new);
     }
 

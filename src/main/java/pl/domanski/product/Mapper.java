@@ -1,8 +1,11 @@
 package pl.domanski.product;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Mapper {
 
-    static ProductDTO toDto(Product product){
+    public ProductDTO toDto(Product product){
         ProductDTO dto = new ProductDTO();
         dto.setId(product.getId());
         dto.setName(product.getName());
