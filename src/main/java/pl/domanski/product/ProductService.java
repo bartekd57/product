@@ -24,8 +24,11 @@ public class ProductService {
         this.mapper = mapper;
     }
 
-
-
+    public ProductDTO findProductById(Long id) {
+        return productRepository.findById(id)
+                .map(mapper::toDto)
+                .orElseThrow(NoSuchElementException::new);
+    }
 
     public ProductDTO findProductAndChangePrice(Long id) {
         setCounterValue(id);
@@ -35,11 +38,21 @@ public class ProductService {
                 .orElseThrow(NoSuchElementException::new);
     }
 
+    private final String lock = new String("id");
+    ;
     public void setCounterValue(Long id) {
-        productRepository.findById(id).ifPresent(product -> {
-            incrementCounter(product);
-            putInMap(product);
-        });
+        synchronized (lock) {
+            System.out.println("locking on :" + lock);
+            productRepository.findById(id).ifPresent(product -> {
+                incrementCounter(product);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                putInMap(product);
+            });
+        }
     }
 
     private void incrementCounter(Product product) {

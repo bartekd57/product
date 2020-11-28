@@ -16,12 +16,17 @@ public class ProductController {
     }
 
 
+    @GetMapping("/product/{id}")
+    public ProductDTO getProductById(@PathVariable Long id) {
+        return productService.findProductById(id);
+    }
+
     @PatchMapping("/product/{id}")
     public ProductDTO getProductWithDiscountById(@PathVariable Long id) {
         return productService.findProductAndChangePrice(id);
     }
 
-    @GetMapping("/product/{id}")
+    @GetMapping("/product/counter/{id}")
     public Integer getNumber(@PathVariable Long id) {
         return productService.getCounterValueForProduct(id);
     }

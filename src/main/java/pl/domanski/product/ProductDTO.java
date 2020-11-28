@@ -1,7 +1,5 @@
 package pl.domanski.product;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.math.BigDecimal;
 
 public class ProductDTO {
