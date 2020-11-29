@@ -16,6 +16,8 @@ public class ProductService {
     private Mapper mapper;
     private Map<Long, Integer> map = new HashMap<>();
 
+    public ProductService() {
+    }
 
     @Autowired
     public ProductService(ProductRepository productRepository, DiscountRepository discountRepository, Mapper mapper) {
