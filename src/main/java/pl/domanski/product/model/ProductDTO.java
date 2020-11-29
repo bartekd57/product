@@ -1,4 +1,4 @@
-package pl.domanski.product;
+package pl.domanski.product.model;
 
 import java.math.BigDecimal;
 

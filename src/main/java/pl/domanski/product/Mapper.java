@@ -1,6 +1,8 @@
 package pl.domanski.product;
 
 import org.springframework.stereotype.Component;
+import pl.domanski.product.model.Product;
+import pl.domanski.product.model.ProductDTO;
 
 @Component
 public class Mapper {

@@ -2,7 +2,9 @@ package pl.domanski.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import pl.domanski.product.model.*;
+import pl.domanski.product.repositories.DiscountRepository;
+import pl.domanski.product.repositories.ProductRepository;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,21 +42,12 @@ public class ProductService {
                 .orElseThrow(NoSuchElementException::new);
     }
 
-    private final String lock = new String("id");
-    ;
+
     public void setCounterValue(Long id) {
-        synchronized (lock) {
-            System.out.println("locking on :" + lock);
             productRepository.findById(id).ifPresent(product -> {
                 incrementCounter(product);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 putInMap(product);
             });
-        }
     }
 
     private void incrementCounter(Product product) {

@@ -7,6 +7,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
+import pl.domanski.product.model.*;
+import pl.domanski.product.repositories.DiscountRepository;
+import pl.domanski.product.repositories.ProductRepository;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Optional;

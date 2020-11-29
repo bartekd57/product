@@ -7,6 +7,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
+import pl.domanski.product.model.Product;
+import pl.domanski.product.model.ProductDTO;
+import pl.domanski.product.model.ProductType;
+
 import java.math.BigDecimal;
 
 import static org.mockito.ArgumentMatchers.any;

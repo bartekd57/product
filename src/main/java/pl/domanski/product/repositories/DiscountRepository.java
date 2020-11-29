@@ -1,11 +1,12 @@
-package pl.domanski.product;
+package pl.domanski.product.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-
+import org.springframework.stereotype.Repository;
+import pl.domanski.product.model.Discount;
+import pl.domanski.product.model.ProductType;
 import java.util.Optional;
 
-@RepositoryRestResource
+@Repository
 public interface DiscountRepository extends JpaRepository<Discount, Long> {
 
     Optional<Discount> findByType(ProductType type);
