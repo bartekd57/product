@@ -6,7 +6,6 @@ import pl.domanski.product.exceptions.IdOutOfRangeException;
 import pl.domanski.product.model.*;
 import pl.domanski.product.repositories.DiscountRepository;
 import pl.domanski.product.repositories.ProductRepository;
-
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
