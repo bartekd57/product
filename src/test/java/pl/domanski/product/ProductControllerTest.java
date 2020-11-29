@@ -7,12 +7,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.http.ResponseEntity;
 import pl.domanski.product.model.Product;
 import pl.domanski.product.model.ProductDTO;
 import pl.domanski.product.model.ProductType;
-
 import java.math.BigDecimal;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -37,10 +36,10 @@ public class ProductControllerTest {
         when(productService.findProductAndChangePrice(any(Long.class))).thenReturn(productDTO);
 
         //When
-        ProductDTO productWithDiscountById = productController.getProductWithDiscountById(1L);
+         ResponseEntity<ProductDTO> productWithDiscountById = productController.getProductWithDiscountById(1L);
 
         //Then
-        Assert.assertEquals(productWithDiscountById.getType(), "FEMALE");
+        Assert.assertEquals(productWithDiscountById.getBody().getType(), "FEMALE");
     }
 
 
@@ -52,10 +51,10 @@ public class ProductControllerTest {
         when(productService.getCounterValueForProduct(any(Long.class))).thenReturn(counter);
 
         //When
-        Integer number = productController.getNumber(1L);
+        ResponseEntity<Integer> number = productController.getNumber(1L);
 
         //Then
-        Assert.assertEquals(number, counter);
+        Assert.assertEquals(Integer.valueOf(number.getBody()), counter);
     }
 
 

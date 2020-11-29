@@ -2,13 +2,15 @@ package pl.domanski.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.domanski.product.exceptions.IdOutOfRangeException;
 import pl.domanski.product.model.*;
 import pl.domanski.product.repositories.DiscountRepository;
 import pl.domanski.product.repositories.ProductRepository;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
+
 
 @Service
 public class ProductService {
@@ -32,7 +34,7 @@ public class ProductService {
         setCounterValue(id);
         return productRepository.findById(id)
                 .map(mapper::toDto)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(IdOutOfRangeException::new);
     }
 
     public ProductDTO findProductAndChangePrice(Long id) {
@@ -40,25 +42,25 @@ public class ProductService {
         return productRepository.findById(id)
                 .map(this::getProductWithDiscountedPrice)
                 .map(mapper::toDto)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(IdOutOfRangeException::new);
     }
 
 
     private final String lock = new String("id");
 
     public void setCounterValue(Long id) {
-         synchronized (lock) {
-              System.out.println("locking on :" + lock);
-        productRepository.findById(id).ifPresent(product -> {
-            incrementCounter(product);
+        synchronized (lock) {
+            System.out.println("locking on :" + lock);
+            productRepository.findById(id).ifPresent(product -> {
+                incrementCounter(product);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            putInMap(product);
-        });
-      }
+                putInMap(product);
+            });
+        }
     }
 
     private void incrementCounter(Product product) {
@@ -89,7 +91,7 @@ public class ProductService {
 
     private Discount getProductDiscount(Product product) {
         ProductType type = product.getType();
-        return discountRepository.findByType(type).orElseThrow(NoSuchElementException::new);
+        return discountRepository.findByType(type).orElseThrow(IdOutOfRangeException::new);
     }
 
 }
