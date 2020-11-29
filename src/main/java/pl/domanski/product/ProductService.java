@@ -50,7 +50,6 @@ public class ProductService {
 
     public void setCounterValue(Long id) {
         synchronized (lock) {
-            System.out.println("locking on :" + lock);
             productRepository.findById(id).ifPresent(product -> {
                 incrementCounter(product);
                 putInMap(product);
