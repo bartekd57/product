@@ -29,6 +29,7 @@ public class ProductService {
     }
 
     public ProductDTO findProductById(Long id) {
+        setCounterValue(id);
         return productRepository.findById(id)
                 .map(mapper::toDto)
                 .orElseThrow(NoSuchElementException::new);
