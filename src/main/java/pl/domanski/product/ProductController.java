@@ -24,7 +24,7 @@ public class ProductController {
     }
 
 
-    @PatchMapping("/product/{id}")
+    @GetMapping("/productDiscounted/{id}")
     public ResponseEntity<ProductDTO> getProductWithDiscountById(@PathVariable Long id) {
         return ResponseEntity.ok(productService.findProductAndChangePrice(id));
     }

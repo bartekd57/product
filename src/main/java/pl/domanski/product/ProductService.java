@@ -18,7 +18,7 @@ public class ProductService {
     private ProductRepository productRepository;
     private DiscountRepository discountRepository;
     private Mapper mapper;
-    private Map<Long, Integer> map = new HashMap<>();
+    private final Map<Long, Integer> map = new HashMap<>();
 
     public ProductService() {
     }
@@ -46,18 +46,13 @@ public class ProductService {
     }
 
 
-    private final String lock = new String("id");
+    private final String lock = "id";
 
     public void setCounterValue(Long id) {
         synchronized (lock) {
             System.out.println("locking on :" + lock);
             productRepository.findById(id).ifPresent(product -> {
                 incrementCounter(product);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 putInMap(product);
             });
         }
